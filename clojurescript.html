@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>ClojureScript + Reagent + Reframe</title>
+<meta name="author" content="(김동우)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./css/reveal.css"/>
+
+<link rel="stylesheet" href="./css/theme/night.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org9fd7475">
+<h2 id="org9fd7475">ClojureScript + Reagent + Reframe</h2>
+<div class="outline-text-2" id="text-org9fd7475">
+</div></section>
+<section id="slide-org32ec9e4">
+<h3 id="org32ec9e4">vs</h3>
+<p>
+Javascript + React + Redux
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org41796ee">
+<h2 id="org41796ee">Clojure</h2>
+<ul>
+<li>함수형 언어 : 불변(Immutable) 데이터 형 + 일급 함수</li>
+<li>발전된 Lisp : code-as-data 패러다임을 map과 vector까지 확장</li>
+<li>다형성(Polymorphism) 지원</li>
+<li>동적(Dynamic) 언어</li>
+<li>JVM 환경에서 실행 (기생 언어)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org75523d6">
+<h2 id="org75523d6">Why Clojure?</h2>
+<div class="outline-text-2" id="text-org75523d6">
+</div></section>
+<section id="slide-org5b11105">
+<h3 id="org5b11105">by Official Rational</h3>
+<ul>
+<li>A Lisp</li>
+<li>for Functional Programming</li>
+<li>symbiotic with an established Platform</li>
+<li>designed for Concurrency</li>
+
+</ul>
+</section>
+<section id="slide-orgea5d061">
+<h3 id="orgea5d061">by Uncle Bob</h3>
+<ul>
+<li>함수형 언어 : 멀티 스레딩 프로그래밍의 어려움 해결</li>
+<li>Lisp : 간결한 문법. Homoiconic</li>
+<li>JVM 환경에서 실행 : 기존 Java 코드와 호환.</li>
+<li>STM 지원 : 동시성 문제 해결</li>
+<li>성능 : 메모리를 공유하는 불변 데이터 구조 사용</li>
+<li>지원 : 커뮤니티와 다양한 도구들</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org026ccd6">
+<h2 id="org026ccd6">Javascript</h2>
+<ul>
+<li>동적 / 약한 타입의 언어</li>
+<li>멀티 패러다임 언어 : 객체지향 + 절차형 + 함수형</li>
+<li>인터프리터 언어 (JIT)</li>
+
+</ul>
+</section>
+<section id="slide-org29f5f3e">
+<h3 id="org29f5f3e">Influenced by</h3>
+<ul>
+<li>C : 문법 (if, while, for, switch …), statement 와 expression 구분</li>
+<li>Java : 문법 (new…), 기본 라이브러리 API (Math, Date…)</li>
+<li>Scheme : Closure, Lexical Scope, 일급함수, 동적 타입, (eval?)</li>
+<li>Self : Prototype 상속</li>
+
+</ul>
+</section>
+<section id="slide-org44aa615">
+<h3 id="org44aa615">Most Popular Language</h3>
+<ul>
+<li>브라우저 환경에서 사용할 수 있는 유일한 언어
+<ul>
+<li>일명, 웹 환경에서의 어셈블리 언어</li>
+<li>(하지만.. WebAssembly가 나온다면?)</li>
+
+</ul></li>
+<li>Node.js : 백엔드 개발</li>
+<li>Electron : PC 어플리케이션 개발</li>
+<li>React Native : 네이티브 모바일 어플리케이션 개발</li>
+
+</ul>
+</section>
+<section id="slide-org30b2e51">
+<h3 id="org30b2e51">Most blamed Langauge</h3>
+<ul>
+<li><a href="https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f">https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f</a></li>
+<li>wtfjs</li>
+<li>JavaScript Garden</li>
+<li>JavaScript Gotchas</li>
+<li>Common JavaScript Errors</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org0ad9d3d">
+<h2 id="org0ad9d3d">Compile to Javascript</h2>
+<div class="outline-text-2" id="text-org0ad9d3d">
+</div></section>
+<section id="slide-orgadb68d9">
+<h3 id="orgadb68d9">Google Web Toolkit (2006)</h3>
+<p>
+Java를 Javascript로 변환. Google 개발
+</p>
+</section>
+<section id="slide-org2e1ebef">
+<h3 id="org2e1ebef">CoffeeScript (2009)</h3>
+<p>
+간결한 Javascript. Ruby, Python 등의 영향
+</p>
+</section>
+<section id="slide-org92f7370">
+<h3 id="org92f7370">Dart (2011)</h3>
+<p>
+개션된 Javascript. 기본 라이브러리 강화. Google 개발
+</p>
+</section>
+<section id="slide-org59fbc95">
+<h3 id="org59fbc95">ClojureScript (2011)</h3>
+<p>
+Clojure를 Javascript로 변환
+</p>
+</section>
+<section id="slide-org372e505">
+<h3 id="org372e505">TypeScript (2012)</h3>
+<p>
+Javascript의 Superset. 타입시스템 도입
+</p>
+</section>
+<section id="slide-org8599183">
+<h3 id="org8599183">Elm (2012)</h3>
+<p>
+정적 타입, 순수 함수형 언어. No runtime Exception
+</p>
+</section>
+<section id="slide-org2d420dd">
+<h3 id="org2d420dd">PureScript (2013)</h3>
+<p>
+정적 타입, 순수 함수형 언어. Haskell 영향
+</p>
+</section>
+<section id="slide-org9784b99">
+<h3 id="org9784b99">BuckleScript (2016)</h3>
+<p>
+Ocaml 을 Javascript 로 변환
+</p>
+</section>
+<section id="slide-orga3adea8">
+<h3 id="orga3adea8">Reason (2016)</h3>
+<p>
+Ocaml과 호환. BuckleScript를 이용. Facebook 개발
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org633f622">
+<h2 id="org633f622">ClojureScript</h2>
+<ul>
+<li>Clojure 코드를 Javascript 로 변환시켜 주는 컴파일러</li>
+<li>Clojure 로 작성됨 -&gt; 컴파일을 위해 JVM 환경 필요 (크로스 컴파일러)</li>
+<li>구글 ClosureCompiler 사용 -&gt; 생성된 Javascript 파일을 최적화</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org508dec0">
+<h2 id="org508dec0">Clojure vs ClojureScript</h2>
+<ul>
+<li>확장자 : clj (Clojure) / cljs (ClojureScript ) / cljs (All)</li>
+<li>Numbers : 자바스크립트 Number 와 동일</li>
+<li>단일 문자형 없음, 모두 문자열</li>
+<li>Refs, Transactions, Agents 지원 안됨</li>
+<li>정규식 지원 방식은 Javascript 와 동일</li>
+<li>매크로 작성시 런타임 환경과 별도로 컴파일 되어야 함
+<ul>
+<li>Computat ergo est: 클로저스트립트에서 매크로 작성시 주의점</li>
+
+</ul></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org0fc0367">
+<h2 id="org0fc0367">Google ClosureCompiler</h2>
+<ul>
+<li>ClojureCompiler ClosureCompiler (스펠링 주의)
+<ul>
+<li>기존의 Javascript 코드를 최적화해서 새로운 Javascript 코드를 생성
+<ul>
+<li>Dead Code Elimination</li>
+<li>Minify &amp; Mangle</li>
+<li>Code Spliting</li>
+
+</ul></li>
+<li>JSDoc 을 활용해서 코드 최적화에 필요한 정보를 얻음</li>
+
+</ul></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org3d29dbd">
+<h2 id="org3d29dbd">Google Clojure Library</h2>
+<ul>
+<li>Google 내부의 서비스에 사용되는 오픈소스 라이브러리 셋</li>
+<li>브라우저 호환성, 네임스페이스, OOP, Math, String, DOM 등 다양한 기능 제공</li>
+<li>ClojureScript 컴파일러가 생성하는 코드에서 사용됨</li>
+<li>ClosureCompiler에 최적화됨</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org924a072">
+<h2 id="org924a072">Javascript vs ClojureScript</h2>
+<div class="outline-text-2" id="text-org924a072">
+</div></section>
+<section id="slide-org851e7e8">
+<h3 id="org851e7e8">Computing with Values</h3>
+<div class="outline-text-3" id="text-org851e7e8">
+</div></section>
+<section id="slide-orge845dcf">
+<h4 id="orge845dcf">Javascript</h4>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">const</span> <span style="color: #DFAF8F;">personA</span> = <span style="color: #DCDCCC;">{</span>
+  age: <span style="color: #BFEBBF;">32</span>,
+  name: <span style="color: #BFEBBF;">{</span>first: <span style="color: #CC9393;">'John'</span>, last: <span style="color: #CC9393;">'Doe'</span><span style="color: #BFEBBF;">}</span>
+<span style="color: #DCDCCC;">}</span>;
+<span style="color: #F0DFAF; font-weight: bold;">const</span> <span style="color: #DFAF8F;">personB</span> = <span style="color: #DCDCCC;">{</span>
+  age: <span style="color: #BFEBBF;">32</span>,
+  name: <span style="color: #BFEBBF;">{</span>first: <span style="color: #CC9393;">'John'</span>, last; <span style="color: #CC9393;">'Doe'</span><span style="color: #BFEBBF;">}</span>
+<span style="color: #DCDCCC;">}</span>
+console.log<span style="color: #DCDCCC;">(</span>personA === personB<span style="color: #DCDCCC;">)</span>;
+</pre>
+</div>
+</section>
+<section id="slide-orgbe0bd67">
+<h4 id="orgbe0bd67">ClojureScript</h4>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">person-a</span> {<span style="color: #BFEBBF;">:age</span> <span style="color: #BFEBBF;">32</span>
+              <span style="color: #BFEBBF;">:name</span> {<span style="color: #BFEBBF;">:first</span> <span style="color: #CC9393;">"John"</span> <span style="color: #BFEBBF;">:last</span> <span style="color: #CC9393;">"Doe"</span><span style="color: #666666;">}})</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">person-b</span> {<span style="color: #BFEBBF;">:age</span> <span style="color: #BFEBBF;">32</span>
+              <span style="color: #BFEBBF;">:name</span> {<span style="color: #BFEBBF;">:first</span> <span style="color: #CC9393;">"John"</span> <span style="color: #BFEBBF;">:last</span> <span style="color: #CC9393;">"Doe"</span><span style="color: #666666;">}})</span>
+(println (= person-a person-b<span style="color: #666666;">))</span>
+</pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+margin: 0.20,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

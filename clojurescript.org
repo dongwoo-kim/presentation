@@ -1,0 +1,241 @@
+#+Title: ClojureScript + Reagent + Reframe
+#+Author: 김동우
+#+Email: gaekkr@gmail.com
+
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: linear
+#+REVEAL_MARGIN: 0.2
+#+OPTIONS: num:nil toc:nil reveal_title_slide:nil
+
+* ClojureScript + Reagent + Reframe
+** vs
+Javascript + React + Redux
+* Clojure
+- 함수형 언어 : 불변(Immutable) 데이터 형 + 일급 함수
+- 발전된 Lisp : code-as-data 패러다임을 map과 vector까지 확장
+- 다형성(Polymorphism) 지원
+- 동적(Dynamic) 언어
+- JVM 환경에서 실행 (기생 언어)
+* Why Clojure? 
+** by Official Rational
+- A Lisp
+- for Functional Programming
+- symbiotic with an established Platform
+- designed for Concurrency
+** by Uncle Bob
+- 함수형 언어 : 멀티 스레딩 프로그래밍의 어려움 해결
+- Lisp : 간결한 문법. Homoiconic
+- JVM 환경에서 실행 : 기존 Java 코드와 호환.
+- STM 지원 : 동시성 문제 해결
+- 성능 : 메모리를 공유하는 불변 데이터 구조 사용
+- 지원 : 커뮤니티와 다양한 도구들
+* Javascript
+- 동적 / 약한 타입의 언어
+- 멀티 패러다임 언어 : 객체지향 + 절차형 + 함수형
+- 인터프리터 언어 (JIT)
+** Influenced by 
+- C : 문법 (if, while, for, switch …), statement 와 expression 구분
+- Java : 문법 (new…), 기본 라이브러리 API (Math, Date…)
+- Scheme : Closure, Lexical Scope, 일급함수, 동적 타입, (eval?)
+- Self : Prototype 상속
+** Most Popular Language
+- 브라우저 환경에서 사용할 수 있는 유일한 언어
+  - 일명, 웹 환경에서의 어셈블리 언어
+  - (하지만.. WebAssembly가 나온다면?)
+- Node.js : 백엔드 개발
+- Electron : PC 어플리케이션 개발
+- React Native : 네이티브 모바일 어플리케이션 개발
+** Most blamed Langauge
+- https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f
+- wtfjs
+- JavaScript Garden
+- JavaScript Gotchas
+- Common JavaScript Errors
+* Compile to Javascript
+** Google Web Toolkit (2006) 
+Java를 Javascript로 변환. Google 개발
+** CoffeeScript (2009) 
+간결한 Javascript. Ruby, Python 등의 영향
+** Dart (2011)
+개션된 Javascript. 기본 라이브러리 강화. Google 개발
+** ClojureScript (2011)
+Clojure를 Javascript로 변환
+** TypeScript (2012)
+Javascript의 Superset. 타입시스템 도입
+** Elm (2012)
+정적 타입, 순수 함수형 언어. No runtime Exception
+** PureScript (2013)
+정적 타입, 순수 함수형 언어. Haskell 영향
+** BuckleScript (2016) 
+Ocaml 을 Javascript 로 변환
+**  Reason (2016)
+Ocaml과 호환. BuckleScript를 이용. Facebook 개발
+* ClojureScript
+- Clojure 코드를 Javascript 로 변환시켜 주는 컴파일러
+- Clojure 로 작성됨 -> 컴파일을 위해 JVM 환경 필요 (크로스 컴파일러)
+- 구글 ClosureCompiler 사용 -> 생성된 Javascript 파일을 최적화
+* Clojure vs ClojureScript
+- 확장자 : clj (Clojure) / cljs (ClojureScript ) / cljs (All)
+- Numbers : 자바스크립트 Number 와 동일
+- 단일 문자형 없음, 모두 문자열
+- Refs, Transactions, Agents 지원 안됨
+- 정규식 지원 방식은 Javascript 와 동일
+- 매크로 작성시 런타임 환경과 별도로 컴파일 되어야 함
+  - Computat ergo est: 클로저스트립트에서 매크로 작성시 주의점
+* Google Closure Compiler
+- ClojureCompiler ClosureCompiler (스펠링 주의)
+  - 기존의 Javascript 코드를 최적화해서 새로운 Javascript 코드를 생성
+    - Dead Code Elimination
+    - Minify & Mangle
+    - Code Spliting
+  - JSDoc 을 활용해서 코드 최적화에 필요한 정보를 얻음
+* Google Clojure Library
+ - Google 내부의 서비스에 사용되는 오픈소스 라이브러리 셋
+ - 브라우저 호환성, 네임스페이스, OOP, Math, String, DOM 등 다양한 기능 제공
+ - ClojureScript 컴파일러가 생성하는 코드에서 사용됨
+ - Closure Compiler에 최적화됨
+* Javascript vs ClojureScript (Similarities)
+- First Class Function
+- Dynamic Typing
+- Anonymous function (Lambda Expression)
+- Closure & Lexical Scoping
+- Literal (JS: Object/Array, CLJS: Map/Vector/Set/List)
+- Destructuring
+- Rest Arguments
+- Numbers & String
+* Javascript vs ClojureScript (differences)
+** Mutable vs Immutable
+*** JavaScript
+#+BEGIN_SRC js
+var state = {
+  count: 0
+};
+state.count = state.count + 1;
+#+END_SRC
+*** ClojureScript
+#+BEGIN_SRC clojure
+(def state (atom {:count 0}))
+
+;; updating the state
+(swap! state #(update % :count inc))
+#+END_SRC
+
+** Reference vs Value
+*** Javascript
+#+BEGIN_SRC js
+const personA = {
+  age: 32,
+  name: {first: 'John', last: 'Doe'}
+};
+
+const personB = {
+  age: 32,
+  name: {first: 'John', last; 'Doe'}
+}
+
+console.log(personA === personB);
+#+END_SRC
+*** ClojureScript
+#+BEGIN_SRC clojure
+(def person-a {:age 32
+              :name {:first "John" :last "Doe"}})
+
+(def person-b {:age 32
+              :name {:first "John" :last "Doe"}})
+
+(println (= person-a person-b))
+#+END_SRC
+
+** Modules vs Namespace
+*** Javascirpt
+- CommonJS / ES6 Module
+#+BEGIN_SRC js
+// my/math.js
+export function sum(a, b) {
+  return a + b;
+}
+
+// my/app.js
+import {sum} from './math';
+const result = sum(10 + 20);
+#+END_SRC
+*** ClojureScript
+- namespace
+#+BEGIN_SRC clojure
+;; my/math.cljs
+(ns my.math)
+(defn sum [a b]
+  (+ a b))
+
+;; my/app.cljs
+(ns my.app
+  (:require [my.math :refer [sum]]))
+(def result (sum 10 20))
+#+END_SRC
+
+** OOP(Class) vs Protocol
+** Generator vs core.async
+* ClojureScript -> Javascript
+- Live Coding : http://app.klipse.tech/
+
+* Tooling
+| -                       | Javascript         | ClojureScript    |
+| Package Managemant      | npm / yarn         | Leiningen / Boot |
+| Scaffolding             | Yeoman / ...       | Leiningen / Boot |
+| Compile (Transpile)     | Babel / TypeScript | Leiningen / Boot |
+| Build                   | Webpack / Rollup   | Leiningen / Boot |
+| Interactive Programming | Webpack Dev Server | Figwheel / REPL  |
+| Static Code Analizer    | ESLint             | Kibit            |
+* Interop
+** Global Variables / APIs
+#+BEGIN_SRC clojure
+(js/alert "Hello")
+
+(js/document.getElementById "app")
+
+(js/document.body.lastChild.innerHTML.charAt 7)
+
+(js/some.of.my.libraries.api.method "args")
+
+(js/$.ajax #js {:url "/"
+                :success (fn [res] (js/console.log res))})
+#+END_SRC
+** Method Call / Property Access 
+#+BEGIN_SRC clojure
+;; same as javacript string
+(def s "Hello Clojure")
+
+;; method call
+(.toUpperCase s) ;; "HELLO CLOJURE"
+
+;; property access
+(.-length s) ;; 13
+
+;; chaning
+(.-length (.toUpperCase (.-innerHTML (js/document.querySelector "div"))))
+(->> (js/document.querySelector "div") .-innerHTML .toUpperCase .-length)
+(.. (js/document.querySelector "div") -innerHTML toUpperCase -length)
+#+END_SRC
+** Object / Array
+#+BEGIN_SRC clojure
+;; macro
+(def arr (array 1 2 3))
+(def obj (js-obj "x" 1 "y" 2))
+
+;; reader literal
+(def arr #js [1 2 3])
+(def obj #js {:x 1 :y 2})
+
+;; clj -> js function
+(def arr (clj->js [1 2 3]))
+(def obj (clj->js {:x 1 :y 2}))
+
+;; jc -> clj function
+(def arr-clj (js->clj arr))
+(def obj-clj (js->clj obj))
+#+END_SRC
+* Who's using ClojureScript?
+- https://github.com/clojure/clojurescript/wiki/Companies-Using-ClojureScript
+- https://circleci.com/
+- https://precursorapp.com/
+- 
