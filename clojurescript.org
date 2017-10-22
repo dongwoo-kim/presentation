@@ -2,9 +2,9 @@
 #+Author: 김동우
 #+Email: gaekkr@gmail.com
 
-#+REVEAL_THEME: night
+#+REVEAL_THEME: moon
 #+REVEAL_TRANS: linear
-#+REVEAL_MARGIN: 0.2
+#+REVEAL_MARGIN: 0.1
 #+OPTIONS: num:nil toc:nil reveal_title_slide:nil
 
 * ClojureScript + Reagent + Reframe
@@ -84,17 +84,17 @@ Ocaml과 호환. BuckleScript를 이용. Facebook 개발
   - Computat ergo est: 클로저스트립트에서 매크로 작성시 주의점
 * Google Closure Compiler
 - ClojureCompiler ClosureCompiler (스펠링 주의)
-  - 기존의 Javascript 코드를 최적화해서 새로운 Javascript 코드를 생성
-    - Dead Code Elimination
-    - Minify & Mangle
-    - Code Spliting
-  - JSDoc 을 활용해서 코드 최적화에 필요한 정보를 얻음
+- 기존의 Javascript 코드를 최적화해서 새로운 Javascript 코드를 생성
+  - Dead Code Elimination
+  - Minify & Mangle
+  - Code Spliting
+- JSDoc 을 활용해서 코드 최적화에 필요한 정보를 얻음
 * Google Clojure Library
  - Google 내부의 서비스에 사용되는 오픈소스 라이브러리 셋
  - 브라우저 호환성, 네임스페이스, OOP, Math, String, DOM 등 다양한 기능 제공
  - ClojureScript 컴파일러가 생성하는 코드에서 사용됨
  - Closure Compiler에 최적화됨
-* Javascript vs ClojureScript (Similarities)
+* JS vs CLJS (Similarities)
 - First Class Function
 - Dynamic Typing
 - Anonymous function (Lambda Expression)
@@ -103,7 +103,7 @@ Ocaml과 호환. BuckleScript를 이용. Facebook 개발
 - Destructuring
 - Rest Arguments
 - Numbers & String
-* Javascript vs ClojureScript (differences)
+* JS vs CLJS (differences)
 ** Mutable vs Immutable
 *** JavaScript
 #+BEGIN_SRC js
@@ -175,20 +175,20 @@ const result = sum(10 + 20);
 
 ** OOP(Class) vs Protocol
 ** Generator vs core.async
-* ClojureScript -> Javascript
-- Live Coding : http://app.klipse.tech/
-
 * Tooling
-| -                       | Javascript         | ClojureScript    |
+|-------------------------+--------------------+------------------|
+|                         | Javascript         | ClojureScript    |
+|-------------------------+--------------------+------------------|
 | Package Managemant      | npm / yarn         | Leiningen / Boot |
 | Scaffolding             | Yeoman / ...       | Leiningen / Boot |
 | Compile (Transpile)     | Babel / TypeScript | Leiningen / Boot |
 | Build                   | Webpack / Rollup   | Leiningen / Boot |
 | Interactive Programming | Webpack Dev Server | Figwheel / REPL  |
 | Static Code Analizer    | ESLint             | Kibit            |
+|-------------------------+--------------------+------------------|
 * Interop
 ** Global Variables / APIs
-#+BEGIN_SRC clojure
+#+BEGIN_SRC clojurescript
 (js/alert "Hello")
 
 (js/document.getElementById "app")
@@ -212,9 +212,11 @@ const result = sum(10 + 20);
 (.-length s) ;; 13
 
 ;; chaning
-(.-length (.toUpperCase (.-innerHTML (js/document.querySelector "div"))))
-(->> (js/document.querySelector "div") .-innerHTML .toUpperCase .-length)
-(.. (js/document.querySelector "div") -innerHTML toUpperCase -length)
+(def my-div (js/document.querySelector "div"))
+
+(.-length (.toUpperCase (.-innerHTML my-div)))
+(->> my-div .-innerHTML .toUpperCase .-length)
+(.. my-div -innerHTML toUpperCase -length)
 #+END_SRC
 ** Object / Array
 #+BEGIN_SRC clojure
@@ -234,8 +236,116 @@ const result = sum(10 + 20);
 (def arr-clj (js->clj arr))
 (def obj-clj (js->clj obj))
 #+END_SRC
+* ClojureScript -> Javascript
+- Live Coding : http://app.klipse.tech/
+* Javascript Modules
+- CLJSJS
+- npm-deps
 * Who's using ClojureScript?
 - https://github.com/clojure/clojurescript/wiki/Companies-Using-ClojureScript
 - https://circleci.com/
 - https://precursorapp.com/
 - 
+* React
+** Declarative
+- Imperative -> Declarative
+- Virtual-DOM (Reconcilation)
+- DOM을 직접 다루지 않고, 가상 DOM의 구조를 반환
+** Component-Based
+- Component를 합성하여 UI 구성
+- Template(X) -> JSX (Javascript Data Structure)
+** Learn Once, Write Anywhere
+- React Native
+- React VR
+
+* React - Functional Approch
+** Component = (Pure) Function
+- Input : Props
+- Ouput : V-DOM(React Element) Tree
+#+BEGIN_QUOTE
+All React components must act like pure functions with respect to their props.
+#+END_QUOTE
+** Immutable Props
+- Props는 Read-Only
+#+BEGIN_QUOTE
+Whether you declare a component as a function or a class, 
+it must never modify its own props
+#+END_QUOTE
+** Immutable State
+- ~this.state~ 직접 변경 불가
+- ~setState()~ 를 통한 명시적 변경
+#+BEGIN_QUOTE
+Never mutate this.state directly, 
+as calling setState() afterwards may replace the mutation you made. 
+Treat this.state as if it were immutable.
+#+END_QUOTE
+** Immutability for Performance
+- shouldComponentUpdate() 
+- Deep Equal 비교를 할 필요 없이 Shallow 비교
+#+BEGIN_SRC js
+class MyComponent extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
+  render() {
+    return <div className={this.props.className}>foo</div>;
+  }
+}
+#+END_SRC
+#+BEGIN_SRC js
+class MyComponent extends React.PureComponent {
+  render() {
+    return <div className={this.props.className}>foo</div>;
+  }
+}
+#+END_SRC
+* React - Sample Code
+* Reagent : Simple React Wrapper
+- Minimalistic interface between ClojureScript and React.
+- JSX 대신 Hickup 형식의 문법 사용
+- State 관리를 위한 Ratom 제공
+* React vs Reagent
+** Simple Component
+*** React
+#+BEGIN_SRC js
+function simpleComponent() {
+  return (
+    <div>
+      <p>I am a component!</p>
+      <p className="someclass">
+        I have 
+        <strong>bold</strong>
+        <span style={{color: "red"}}> and red</span>
+        text.
+      </p>
+    </div>
+  )
+}
+#+END_SRC
+*** Reagent
+#+BEGIN_SRC clojure
+(defn simple-component []
+  [:div
+   [:p "I am a component!"]
+   [:p.someclass
+     "I have " 
+     [:strong "bold"]
+     [:span {:style {:color "red"}} " and red "] 
+     "text."]])
+#+END_SRC
+
+** Nested Component
+*** React
+#+BEGIN_SRC js
+function simpleParent() {
+  
+}
+
+#+END_SRC
+*** Reagent
+#+BEGIN_SRC clojure
+(defn simple-parent []
+  [:div
+   [:p "I include simple-component."]
+   [simple-component]])
+#+END_SRC

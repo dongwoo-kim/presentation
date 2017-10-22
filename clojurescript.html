@@ -9,7 +9,7 @@
 </style>
 <link rel="stylesheet" href="./css/reveal.css"/>
 
-<link rel="stylesheet" href="./css/theme/night.css" id="theme"/>
+<link rel="stylesheet" href="./css/theme/moon.css" id="theme"/>
 
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -28,20 +28,20 @@
 <div class="slides">
 
 <section>
-<section id="slide-org9fd7475">
-<h2 id="org9fd7475">ClojureScript + Reagent + Reframe</h2>
-<div class="outline-text-2" id="text-org9fd7475">
+<section id="slide-org46c0c1e">
+<h2 id="org46c0c1e">ClojureScript + Reagent + Reframe</h2>
+<div class="outline-text-2" id="text-org46c0c1e">
 </div></section>
-<section id="slide-org32ec9e4">
-<h3 id="org32ec9e4">vs</h3>
+<section id="slide-org813e9b0">
+<h3 id="org813e9b0">vs</h3>
 <p>
 Javascript + React + Redux
 </p>
 </section>
 </section>
 <section>
-<section id="slide-org41796ee">
-<h2 id="org41796ee">Clojure</h2>
+<section id="slide-orgc6163ba">
+<h2 id="orgc6163ba">Clojure</h2>
 <ul>
 <li>함수형 언어 : 불변(Immutable) 데이터 형 + 일급 함수</li>
 <li>발전된 Lisp : code-as-data 패러다임을 map과 vector까지 확장</li>
@@ -53,12 +53,12 @@ Javascript + React + Redux
 </section>
 </section>
 <section>
-<section id="slide-org75523d6">
-<h2 id="org75523d6">Why Clojure?</h2>
-<div class="outline-text-2" id="text-org75523d6">
+<section id="slide-org5479bbd">
+<h2 id="org5479bbd">Why Clojure?</h2>
+<div class="outline-text-2" id="text-org5479bbd">
 </div></section>
-<section id="slide-org5b11105">
-<h3 id="org5b11105">by Official Rational</h3>
+<section id="slide-orgf57ba6f">
+<h3 id="orgf57ba6f">by Official Rational</h3>
 <ul>
 <li>A Lisp</li>
 <li>for Functional Programming</li>
@@ -67,8 +67,8 @@ Javascript + React + Redux
 
 </ul>
 </section>
-<section id="slide-orgea5d061">
-<h3 id="orgea5d061">by Uncle Bob</h3>
+<section id="slide-org5c5a1c0">
+<h3 id="org5c5a1c0">by Uncle Bob</h3>
 <ul>
 <li>함수형 언어 : 멀티 스레딩 프로그래밍의 어려움 해결</li>
 <li>Lisp : 간결한 문법. Homoiconic</li>
@@ -81,8 +81,8 @@ Javascript + React + Redux
 </section>
 </section>
 <section>
-<section id="slide-org026ccd6">
-<h2 id="org026ccd6">Javascript</h2>
+<section id="slide-org41224bf">
+<h2 id="org41224bf">Javascript</h2>
 <ul>
 <li>동적 / 약한 타입의 언어</li>
 <li>멀티 패러다임 언어 : 객체지향 + 절차형 + 함수형</li>
@@ -90,8 +90,8 @@ Javascript + React + Redux
 
 </ul>
 </section>
-<section id="slide-org29f5f3e">
-<h3 id="org29f5f3e">Influenced by</h3>
+<section id="slide-orgab4380d">
+<h3 id="orgab4380d">Influenced by</h3>
 <ul>
 <li>C : 문법 (if, while, for, switch …), statement 와 expression 구분</li>
 <li>Java : 문법 (new…), 기본 라이브러리 API (Math, Date…)</li>
@@ -100,8 +100,8 @@ Javascript + React + Redux
 
 </ul>
 </section>
-<section id="slide-org44aa615">
-<h3 id="org44aa615">Most Popular Language</h3>
+<section id="slide-orgeec5a3f">
+<h3 id="orgeec5a3f">Most Popular Language</h3>
 <ul>
 <li>브라우저 환경에서 사용할 수 있는 유일한 언어
 <ul>
@@ -115,8 +115,8 @@ Javascript + React + Redux
 
 </ul>
 </section>
-<section id="slide-org30b2e51">
-<h3 id="org30b2e51">Most blamed Langauge</h3>
+<section id="slide-org64352fe">
+<h3 id="org64352fe">Most blamed Langauge</h3>
 <ul>
 <li><a href="https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f">https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f</a></li>
 <li>wtfjs</li>
@@ -128,68 +128,68 @@ Javascript + React + Redux
 </section>
 </section>
 <section>
-<section id="slide-org0ad9d3d">
-<h2 id="org0ad9d3d">Compile to Javascript</h2>
-<div class="outline-text-2" id="text-org0ad9d3d">
+<section id="slide-org3c8ece4">
+<h2 id="org3c8ece4">Compile to Javascript</h2>
+<div class="outline-text-2" id="text-org3c8ece4">
 </div></section>
-<section id="slide-orgadb68d9">
-<h3 id="orgadb68d9">Google Web Toolkit (2006)</h3>
+<section id="slide-orgcf5770f">
+<h3 id="orgcf5770f">Google Web Toolkit (2006)</h3>
 <p>
 Java를 Javascript로 변환. Google 개발
 </p>
 </section>
-<section id="slide-org2e1ebef">
-<h3 id="org2e1ebef">CoffeeScript (2009)</h3>
+<section id="slide-org5fb9d00">
+<h3 id="org5fb9d00">CoffeeScript (2009)</h3>
 <p>
 간결한 Javascript. Ruby, Python 등의 영향
 </p>
 </section>
-<section id="slide-org92f7370">
-<h3 id="org92f7370">Dart (2011)</h3>
+<section id="slide-org4c11230">
+<h3 id="org4c11230">Dart (2011)</h3>
 <p>
 개션된 Javascript. 기본 라이브러리 강화. Google 개발
 </p>
 </section>
-<section id="slide-org59fbc95">
-<h3 id="org59fbc95">ClojureScript (2011)</h3>
+<section id="slide-org8eb23a1">
+<h3 id="org8eb23a1">ClojureScript (2011)</h3>
 <p>
 Clojure를 Javascript로 변환
 </p>
 </section>
-<section id="slide-org372e505">
-<h3 id="org372e505">TypeScript (2012)</h3>
+<section id="slide-org64cdcb5">
+<h3 id="org64cdcb5">TypeScript (2012)</h3>
 <p>
 Javascript의 Superset. 타입시스템 도입
 </p>
 </section>
-<section id="slide-org8599183">
-<h3 id="org8599183">Elm (2012)</h3>
+<section id="slide-orgdbe7773">
+<h3 id="orgdbe7773">Elm (2012)</h3>
 <p>
 정적 타입, 순수 함수형 언어. No runtime Exception
 </p>
 </section>
-<section id="slide-org2d420dd">
-<h3 id="org2d420dd">PureScript (2013)</h3>
+<section id="slide-org12e53b2">
+<h3 id="org12e53b2">PureScript (2013)</h3>
 <p>
 정적 타입, 순수 함수형 언어. Haskell 영향
 </p>
 </section>
-<section id="slide-org9784b99">
-<h3 id="org9784b99">BuckleScript (2016)</h3>
+<section id="slide-orgb73aeae">
+<h3 id="orgb73aeae">BuckleScript (2016)</h3>
 <p>
 Ocaml 을 Javascript 로 변환
 </p>
 </section>
-<section id="slide-orga3adea8">
-<h3 id="orga3adea8">Reason (2016)</h3>
+<section id="slide-org1159b13">
+<h3 id="org1159b13">Reason (2016)</h3>
 <p>
 Ocaml과 호환. BuckleScript를 이용. Facebook 개발
 </p>
 </section>
 </section>
 <section>
-<section id="slide-org633f622">
-<h2 id="org633f622">ClojureScript</h2>
+<section id="slide-org470914d">
+<h2 id="org470914d">ClojureScript</h2>
 <ul>
 <li>Clojure 코드를 Javascript 로 변환시켜 주는 컴파일러</li>
 <li>Clojure 로 작성됨 -&gt; 컴파일을 위해 JVM 환경 필요 (크로스 컴파일러)</li>
@@ -199,8 +199,8 @@ Ocaml과 호환. BuckleScript를 이용. Facebook 개발
 </section>
 </section>
 <section>
-<section id="slide-org508dec0">
-<h2 id="org508dec0">Clojure vs ClojureScript</h2>
+<section id="slide-org6bd2bb5">
+<h2 id="org6bd2bb5">Clojure vs ClojureScript</h2>
 <ul>
 <li>확장자 : clj (Clojure) / cljs (ClojureScript ) / cljs (All)</li>
 <li>Numbers : 자바스크립트 Number 와 동일</li>
@@ -217,11 +217,10 @@ Ocaml과 호환. BuckleScript를 이용. Facebook 개발
 </section>
 </section>
 <section>
-<section id="slide-org0fc0367">
-<h2 id="org0fc0367">Google ClosureCompiler</h2>
+<section id="slide-org4b20209">
+<h2 id="org4b20209">Google Closure Compiler</h2>
 <ul>
-<li>ClojureCompiler ClosureCompiler (스펠링 주의)
-<ul>
+<li>ClojureCompiler ClosureCompiler (스펠링 주의)</li>
 <li>기존의 Javascript 코드를 최적화해서 새로운 Javascript 코드를 생성
 <ul>
 <li>Dead Code Elimination</li>
@@ -231,57 +230,506 @@ Ocaml과 호환. BuckleScript를 이용. Facebook 개발
 </ul></li>
 <li>JSDoc 을 활용해서 코드 최적화에 필요한 정보를 얻음</li>
 
-</ul></li>
-
 </ul>
 </section>
 </section>
 <section>
-<section id="slide-org3d29dbd">
-<h2 id="org3d29dbd">Google Clojure Library</h2>
+<section id="slide-org777ff2a">
+<h2 id="org777ff2a">Google Clojure Library</h2>
 <ul>
 <li>Google 내부의 서비스에 사용되는 오픈소스 라이브러리 셋</li>
 <li>브라우저 호환성, 네임스페이스, OOP, Math, String, DOM 등 다양한 기능 제공</li>
 <li>ClojureScript 컴파일러가 생성하는 코드에서 사용됨</li>
-<li>ClosureCompiler에 최적화됨</li>
+<li>Closure Compiler에 최적화됨</li>
 
 </ul>
 </section>
 </section>
 <section>
-<section id="slide-org924a072">
-<h2 id="org924a072">Javascript vs ClojureScript</h2>
-<div class="outline-text-2" id="text-org924a072">
+<section id="slide-orge2a1c18">
+<h2 id="orge2a1c18">JS vs CLJS (Similarities)</h2>
+<ul>
+<li>First Class Function</li>
+<li>Dynamic Typing</li>
+<li>Anonymous function (Lambda Expression)</li>
+<li>Closure &amp; Lexical Scoping</li>
+<li>Literal (JS: Object/Array, CLJS: Map/Vector/Set/List)</li>
+<li>Destructuring</li>
+<li>Rest Arguments</li>
+<li>Numbers &amp; String</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgd10ce65">
+<h2 id="orgd10ce65">JS vs CLJS (differences)</h2>
+<div class="outline-text-2" id="text-orgd10ce65">
 </div></section>
-<section id="slide-org851e7e8">
-<h3 id="org851e7e8">Computing with Values</h3>
-<div class="outline-text-3" id="text-org851e7e8">
+<section id="slide-org3674c7f">
+<h3 id="org3674c7f">Mutable vs Immutable</h3>
+<div class="outline-text-3" id="text-org3674c7f">
 </div></section>
-<section id="slide-orge845dcf">
-<h4 id="orge845dcf">Javascript</h4>
+<section id="slide-org4752e8f">
+<h4 id="org4752e8f">JavaScript</h4>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">state</span> = <span style="color: #DCDCCC;">{</span>
+  count: <span style="color: #BFEBBF;">0</span>
+<span style="color: #DCDCCC;">}</span>;
+state.count = state.count + <span style="color: #BFEBBF;">1</span>;
+</pre>
+</div>
+</section>
+<section id="slide-org9c5b0f6">
+<h4 id="org9c5b0f6">ClojureScript</h4>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">state</span> (atom {<span style="color: #BFEBBF;">:count</span> <span style="color: #BFEBBF;">0</span><span style="color: #666666;">}))</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">updating the state</span>
+(swap! state #(update <span style="color: #DFAF8F;">%</span> <span style="color: #BFEBBF;">:count</span> inc<span style="color: #666666;">))</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgcb22d68">
+<h3 id="orgcb22d68">Reference vs Value</h3>
+<div class="outline-text-3" id="text-orgcb22d68">
+</div></section>
+<section id="slide-orgdc5651d">
+<h4 id="orgdc5651d">Javascript</h4>
 <div class="org-src-container">
 
 <pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">const</span> <span style="color: #DFAF8F;">personA</span> = <span style="color: #DCDCCC;">{</span>
   age: <span style="color: #BFEBBF;">32</span>,
   name: <span style="color: #BFEBBF;">{</span>first: <span style="color: #CC9393;">'John'</span>, last: <span style="color: #CC9393;">'Doe'</span><span style="color: #BFEBBF;">}</span>
 <span style="color: #DCDCCC;">}</span>;
+
 <span style="color: #F0DFAF; font-weight: bold;">const</span> <span style="color: #DFAF8F;">personB</span> = <span style="color: #DCDCCC;">{</span>
   age: <span style="color: #BFEBBF;">32</span>,
   name: <span style="color: #BFEBBF;">{</span>first: <span style="color: #CC9393;">'John'</span>, last; <span style="color: #CC9393;">'Doe'</span><span style="color: #BFEBBF;">}</span>
 <span style="color: #DCDCCC;">}</span>
+
 console.log<span style="color: #DCDCCC;">(</span>personA === personB<span style="color: #DCDCCC;">)</span>;
 </pre>
 </div>
 </section>
-<section id="slide-orgbe0bd67">
-<h4 id="orgbe0bd67">ClojureScript</h4>
+<section id="slide-org494ca18">
+<h4 id="org494ca18">ClojureScript</h4>
 <div class="org-src-container">
 
 <pre  class="src src-clojure">(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">person-a</span> {<span style="color: #BFEBBF;">:age</span> <span style="color: #BFEBBF;">32</span>
               <span style="color: #BFEBBF;">:name</span> {<span style="color: #BFEBBF;">:first</span> <span style="color: #CC9393;">"John"</span> <span style="color: #BFEBBF;">:last</span> <span style="color: #CC9393;">"Doe"</span><span style="color: #666666;">}})</span>
+
 (<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">person-b</span> {<span style="color: #BFEBBF;">:age</span> <span style="color: #BFEBBF;">32</span>
               <span style="color: #BFEBBF;">:name</span> {<span style="color: #BFEBBF;">:first</span> <span style="color: #CC9393;">"John"</span> <span style="color: #BFEBBF;">:last</span> <span style="color: #CC9393;">"Doe"</span><span style="color: #666666;">}})</span>
+
 (println (= person-a person-b<span style="color: #666666;">))</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgf6ef6bb">
+<h3 id="orgf6ef6bb">Modules vs Namespace</h3>
+<div class="outline-text-3" id="text-orgf6ef6bb">
+</div></section>
+<section id="slide-org84f9596">
+<h4 id="org84f9596">Javascirpt</h4>
+<ul>
+<li>CommonJS / ES6 Module</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">my/math.js</span>
+<span style="color: #F0DFAF; font-weight: bold;">export</span> <span style="color: #F0DFAF; font-weight: bold;">function</span> sum<span style="color: #DCDCCC;">(</span><span style="color: #DFAF8F;">a</span>, <span style="color: #DFAF8F;">b</span><span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">{</span>
+  <span style="color: #F0DFAF; font-weight: bold;">return</span> a + b;
+<span style="color: #DCDCCC;">}</span>
+
+<span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">my/app.js</span>
+<span style="color: #F0DFAF; font-weight: bold;">import</span> <span style="color: #DCDCCC;">{</span>sum<span style="color: #DCDCCC;">}</span> from <span style="color: #CC9393;">'./math'</span>;
+<span style="color: #F0DFAF; font-weight: bold;">const</span> <span style="color: #DFAF8F;">result</span> = sum<span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">10</span> + <span style="color: #BFEBBF;">20</span><span style="color: #DCDCCC;">)</span>;
+</pre>
+</div>
+</section>
+<section id="slide-org8d4b4fd">
+<h4 id="org8d4b4fd">ClojureScript</h4>
+<ul>
+<li>namespace</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">my/math.cljs</span>
+(<span style="color: #F0DFAF; font-weight: bold;">ns</span> <span style="color: #7CB8BB;">my.math</span><span style="color: #666666;">)</span>
+(<span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">sum</span> [a b<span style="color: #666666;">]</span>
+  (+ a b<span style="color: #666666;">))</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">my/app.cljs</span>
+(<span style="color: #F0DFAF; font-weight: bold;">ns</span> <span style="color: #7CB8BB;">my.app</span>
+  (<span style="color: #BFEBBF;">:require</span> [<span style="color: #7CB8BB;">my.math</span> <span style="color: #BFEBBF;">:refer</span> [sum<span style="color: #666666;">]]))</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">result</span> (sum <span style="color: #BFEBBF;">10</span> <span style="color: #BFEBBF;">20</span><span style="color: #666666;">))</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org54ec2f5">
+<h3 id="org54ec2f5">OOP(Class) vs Protocol</h3>
+</section>
+<section id="slide-orgd8d180d">
+<h3 id="orgd8d180d">Generator vs core.async</h3>
+</section>
+</section>
+<section>
+<section id="slide-orgc49b860">
+<h2 id="orgc49b860">Tooling</h2>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Javascript</th>
+<th scope="col" class="org-left">ClojureScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Package Managemant</td>
+<td class="org-left">npm / yarn</td>
+<td class="org-left">Leiningen / Boot</td>
+</tr>
+
+<tr>
+<td class="org-left">Scaffolding</td>
+<td class="org-left">Yeoman / &#x2026;</td>
+<td class="org-left">Leiningen / Boot</td>
+</tr>
+
+<tr>
+<td class="org-left">Compile (Transpile)</td>
+<td class="org-left">Babel / TypeScript</td>
+<td class="org-left">Leiningen / Boot</td>
+</tr>
+
+<tr>
+<td class="org-left">Build</td>
+<td class="org-left">Webpack / Rollup</td>
+<td class="org-left">Leiningen / Boot</td>
+</tr>
+
+<tr>
+<td class="org-left">Interactive Programming</td>
+<td class="org-left">Webpack Dev Server</td>
+<td class="org-left">Figwheel / REPL</td>
+</tr>
+
+<tr>
+<td class="org-left">Static Code Analizer</td>
+<td class="org-left">ESLint</td>
+<td class="org-left">Kibit</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section>
+<section id="slide-org05e5a09">
+<h2 id="org05e5a09">Interop</h2>
+<div class="outline-text-2" id="text-org05e5a09">
+</div></section>
+<section id="slide-org0ff1904">
+<h3 id="org0ff1904">Global Variables / APIs</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojurescript">(<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>alert <span style="color: #CC9393;">"Hello"</span><span style="color: #666666;">)</span>
+
+(<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>document.getElementById <span style="color: #CC9393;">"app"</span><span style="color: #666666;">)</span>
+
+(<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>document.body.lastChild.innerHTML.charAt <span style="color: #BFEBBF;">7</span><span style="color: #666666;">)</span>
+
+(<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>some.of.my.libraries.api.method <span style="color: #CC9393;">"args"</span><span style="color: #666666;">)</span>
+
+(<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>$.ajax #js {<span style="color: #BFEBBF;">:url</span> <span style="color: #CC9393;">"/"</span>
+                <span style="color: #BFEBBF;">:success</span> (<span style="color: #F0DFAF; font-weight: bold;">fn</span> [res] (<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>console.log res<span style="color: #666666;">))})</span>
+</pre>
+</div>
+</section>
+<section id="slide-org87623cd">
+<h3 id="org87623cd">Method Call / Property Access</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">same as javacript string</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">s</span> <span style="color: #9FC59F;">"Hello Clojure"</span><span style="color: #666666;">)</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">method call</span>
+(<span style="color: #94BFF3;">.toUpperCase</span> s) <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">"HELLO CLOJURE"</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">property access</span>
+(<span style="color: #94BFF3;">.-length</span> s) <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">13</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">chaning</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">my-div</span> (<span style="color: #7CB8BB;">js</span><span style="color: #DCDCCC; background-color: #3F3F3F;">/</span>document.querySelector <span style="color: #CC9393;">"div"</span><span style="color: #666666;">))</span>
+
+(<span style="color: #94BFF3;">.-length</span> (<span style="color: #94BFF3;">.toUpperCase</span> (<span style="color: #94BFF3;">.-innerHTML</span> my-div<span style="color: #666666;">)))</span>
+(<span style="color: #F0DFAF; font-weight: bold;">-&gt;&gt;</span> my-div <span style="color: #94BFF3;">.-innerHTML</span> <span style="color: #94BFF3;">.toUpperCase</span> <span style="color: #94BFF3;">.-length</span><span style="color: #666666;">)</span>
+(<span style="color: #F0DFAF; font-weight: bold;">..</span> my-div -innerHTML <span style="color: #94BFF3;">toUpperCase</span> -length<span style="color: #666666;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orga204bcb">
+<h3 id="orga204bcb">Object / Array</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">macro</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">arr</span> (array <span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #666666;">))</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">obj</span> (js-obj <span style="color: #CC9393;">"x"</span> <span style="color: #BFEBBF;">1</span> <span style="color: #CC9393;">"y"</span> <span style="color: #BFEBBF;">2</span><span style="color: #666666;">))</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">reader literal</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">arr</span> #js [<span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #666666;">])</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">obj</span> #js {<span style="color: #BFEBBF;">:x</span> <span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">:y</span> <span style="color: #BFEBBF;">2</span><span style="color: #666666;">})</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">clj -&gt; js function</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">arr</span> (clj-&gt;js [<span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #666666;">]))</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">obj</span> (clj-&gt;js {<span style="color: #BFEBBF;">:x</span> <span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">:y</span> <span style="color: #BFEBBF;">2</span><span style="color: #666666;">}))</span>
+
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">jc -&gt; clj function</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">arr-clj</span> (js-&gt;clj arr<span style="color: #666666;">))</span>
+(<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">obj-clj</span> (js-&gt;clj obj<span style="color: #666666;">))</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org567d14e">
+<h2 id="org567d14e">ClojureScript -&gt; Javascript</h2>
+<ul>
+<li>Live Coding : <a href="http://app.klipse.tech/">http://app.klipse.tech/</a></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org83ccfee">
+<h2 id="org83ccfee">Javascript Modules</h2>
+<ul>
+<li>CLJSJS</li>
+<li>npm-deps</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org3771b50">
+<h2 id="org3771b50">Who's using ClojureScript?</h2>
+<ul>
+<li><a href="https://github.com/clojure/clojurescript/wiki/Companies-Using-ClojureScript">https://github.com/clojure/clojurescript/wiki/Companies-Using-ClojureScript</a></li>
+<li><a href="https://circleci.com/">https://circleci.com/</a></li>
+<li><a href="https://precursorapp.com/">https://precursorapp.com/</a></li>
+<li></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgc95a69b">
+<h2 id="orgc95a69b">React</h2>
+<div class="outline-text-2" id="text-orgc95a69b">
+</div></section>
+<section id="slide-org779d33e">
+<h3 id="org779d33e">Declarative</h3>
+<ul>
+<li>Imperative -&gt; Declarative</li>
+<li>Virtual-DOM (Reconcilation)</li>
+<li>DOM을 직접 다루지 않고, 가상 DOM의 구조를 반환</li>
+
+</ul>
+</section>
+<section id="slide-orgfb19cad">
+<h3 id="orgfb19cad">Component-Based</h3>
+<ul>
+<li>Component를 합성하여 UI 구성</li>
+<li>Template(X) -&gt; JSX (Javascript Data Structure)</li>
+
+</ul>
+</section>
+<section id="slide-orgb3d2b32">
+<h3 id="orgb3d2b32">Learn Once, Write Anywhere</h3>
+<ul>
+<li>React Native</li>
+<li>React VR</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org4edd161">
+<h2 id="org4edd161">React - Functional Approch</h2>
+<div class="outline-text-2" id="text-org4edd161">
+</div></section>
+<section id="slide-org45e0222">
+<h3 id="org45e0222">Component = (Pure) Function</h3>
+<ul>
+<li>Input : Props</li>
+<li>Ouput : V-DOM(React Element) Tree</li>
+
+</ul>
+<blockquote nil>
+<p>
+All React components must act like pure functions with respect to their props.
+</p>
+</blockquote>
+</section>
+<section id="slide-org6822d27">
+<h3 id="org6822d27">Immutable Props</h3>
+<ul>
+<li>Props는 Read-Only</li>
+
+</ul>
+<blockquote nil>
+<p>
+Whether you declare a component as a function or a class, 
+it must never modify its own props
+</p>
+</blockquote>
+</section>
+<section id="slide-org9bb9187">
+<h3 id="org9bb9187">Immutable State</h3>
+<ul>
+<li><code>this.state</code> 직접 변경 불가</li>
+<li><code>setState()</code> 를 통한 명시적 변경</li>
+
+</ul>
+<blockquote nil>
+<p>
+Never mutate this.state directly, 
+as calling setState() afterwards may replace the mutation you made. 
+Treat this.state as if it were immutable.
+</p>
+</blockquote>
+</section>
+<section id="slide-org7f93bdd">
+<h3 id="org7f93bdd">Immutability for Performance</h3>
+<ul>
+<li>shouldComponentUpdate()</li>
+<li>Deep Equal 비교를 할 필요 없이 Shallow 비교</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">class</span> MyComponent <span style="color: #F0DFAF; font-weight: bold;">extends</span> React.Component <span style="color: #DCDCCC;">{</span>
+  shouldComponentUpdate<span style="color: #BFEBBF;">(</span>nextProps, nextState<span style="color: #BFEBBF;">)</span> <span style="color: #BFEBBF;">{</span>
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> shallowCompare<span style="color: #D0BF8F;">(</span><span style="color: #BFEBBF;">this</span>, nextProps, nextState<span style="color: #D0BF8F;">)</span>;
+  <span style="color: #BFEBBF;">}</span>
+  render<span style="color: #BFEBBF;">()</span> <span style="color: #BFEBBF;">{</span>
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> &lt;div className=<span style="color: #D0BF8F;">{</span><span style="color: #BFEBBF;">this</span>.props.className<span style="color: #D0BF8F;">}</span>&gt;foo&lt;/div&gt;;
+  <span style="color: #BFEBBF;">}</span>
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">class</span> MyComponent <span style="color: #F0DFAF; font-weight: bold;">extends</span> React.PureComponent <span style="color: #DCDCCC;">{</span>
+  render<span style="color: #BFEBBF;">()</span> <span style="color: #BFEBBF;">{</span>
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> &lt;div className=<span style="color: #D0BF8F;">{</span><span style="color: #BFEBBF;">this</span>.props.className<span style="color: #D0BF8F;">}</span>&gt;foo&lt;/div&gt;;
+  <span style="color: #BFEBBF;">}</span>
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orge0ed66c">
+<h2 id="orge0ed66c">React - Sample Code</h2>
+</section>
+</section>
+<section>
+<section id="slide-org827e34d">
+<h2 id="org827e34d">Reagent : Simple React Wrapper</h2>
+<ul>
+<li>Minimalistic interface between ClojureScript and React.</li>
+<li>JSX 대신 Hickup 형식의 문법 사용</li>
+<li>State 관리를 위한 Ratom 제공</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org55e5946">
+<h2 id="org55e5946">React vs Reagent</h2>
+<div class="outline-text-2" id="text-org55e5946">
+</div></section>
+<section id="slide-orgd7c1b09">
+<h3 id="orgd7c1b09">Simple Component</h3>
+<div class="outline-text-3" id="text-orgd7c1b09">
+</div></section>
+<section id="slide-org874f65b">
+<h4 id="org874f65b">React</h4>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">simpleComponent</span><span style="color: #DCDCCC;">()</span> <span style="color: #DCDCCC;">{</span>
+  <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #BFEBBF;">(</span>
+    &lt;div&gt;
+      &lt;p&gt;I am a component!&lt;/p&gt;
+      &lt;p className=<span style="color: #CC9393;">"someclass"</span>&gt;
+        I have 
+        &lt;strong&gt;bold&lt;/strong&gt;
+        &lt;span style=<span style="color: #D0BF8F;">{</span><span style="color: #93E0E3;">{</span>color: <span style="color: #CC9393;">"red"</span><span style="color: #93E0E3;">}</span><span style="color: #D0BF8F;">}</span>&gt; and red&lt;/span&gt;
+        text.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  <span style="color: #BFEBBF;">)</span>
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgf038901">
+<h4 id="orgf038901">Reagent</h4>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">(<span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">simple-component</span> [<span style="color: #666666;">]</span>
+  [<span style="color: #BFEBBF;">:div</span>
+   [<span style="color: #BFEBBF;">:p</span> <span style="color: #CC9393;">"I am a component!"</span><span style="color: #666666;">]</span>
+   [<span style="color: #BFEBBF;">:p.someclass</span>
+     <span style="color: #CC9393;">"I have "</span> 
+     [<span style="color: #BFEBBF;">:strong</span> <span style="color: #CC9393;">"bold"</span><span style="color: #666666;">]</span>
+     [<span style="color: #BFEBBF;">:span</span> {<span style="color: #BFEBBF;">:style</span> {<span style="color: #BFEBBF;">:color</span> <span style="color: #CC9393;">"red"</span>}} <span style="color: #CC9393;">" and red "</span>] 
+     <span style="color: #CC9393;">"text."</span><span style="color: #666666;">]])</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org6300180">
+<h3 id="org6300180">Nested Component</h3>
+<div class="outline-text-3" id="text-org6300180">
+</div></section>
+<section id="slide-orgbe334da">
+<h4 id="orgbe334da">React</h4>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">simpleParent</span><span style="color: #DCDCCC;">()</span> <span style="color: #DCDCCC;">{</span>
+
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
+</section>
+<section id="slide-org0eedc73">
+<h4 id="org0eedc73">Reagent</h4>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">(<span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">simple-parent</span> [<span style="color: #666666;">]</span>
+  [<span style="color: #BFEBBF;">:div</span>
+   [<span style="color: #BFEBBF;">:p</span> <span style="color: #CC9393;">"I include simple-component."</span><span style="color: #666666;">]</span>
+   [simple-component<span style="color: #666666;">]])</span>
 </pre>
 </div>
 </section>
@@ -304,7 +752,7 @@ slideNumber: 'c',
 rollingLinks: false,
 keyboard: true,
 overview: true,
-margin: 0.20,
+margin: 0.10,
 
 theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
