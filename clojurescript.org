@@ -68,8 +68,9 @@ Javascript의 Superset. 타입시스템 도입
 정적 타입, 순수 함수형 언어. Haskell 영향
 ** BuckleScript (2016) 
 Ocaml 을 Javascript 로 변환
-**  Reason (2016)
+** Reason (2016)
 Ocaml과 호환. BuckleScript를 이용. Facebook 개발
+
 * ClojureScript
 - Clojure 코드를 Javascript 로 변환시켜 주는 컴파일러
 - Clojure 로 작성됨 -> 컴파일을 위해 JVM 환경 필요 (크로스 컴파일러)
@@ -265,6 +266,36 @@ const result = sum(10 + 20);
 #+BEGIN_QUOTE
 All React components must act like pure functions with respect to their props.
 #+END_QUOTE
+- JSX -> Javascript
+#+BEGIN_SRC js
+<div>
+  <TodoInput />
+  <ul>
+    {todos.map(todo => <TodoItem todo={todo} />)}
+  </ul>
+  <div>Completed: {completedTodo.length}</div>
+</div>
+#+END_SRC
+#+BEGIN_SRC js
+React.createElement(
+  "div",
+  null,
+  React.createElement(TodoInput, null),
+  React.createElement(
+    "ul",
+    null,
+    todos.map(function (todo) {
+      return React.createElement(TodoItem, { todo: todo });
+    })
+  ),
+  React.createElement(
+    "div",
+    null,
+    "Completed: ",
+    completedTodo.length
+  )
+);
+#+END_SRC
 ** Immutable Props
 - Props는 Read-Only
 #+BEGIN_QUOTE
@@ -299,6 +330,7 @@ class MyComponent extends React.PureComponent {
   }
 }
 #+END_SRC
+
 * React - Sample Code
 * Reagent : Simple React Wrapper
 - Minimalistic interface between ClojureScript and React.
@@ -337,15 +369,307 @@ function simpleComponent() {
 ** Nested Component
 *** React
 #+BEGIN_SRC js
-function simpleParent() {
-  
+const todos = [
+  'Learn ClojureScript',
+  'Learn Reagent',
+  'Learn Reframe'
+];
+
+function TodoItem(todo) {
+  return <li className="todo-item">{todo}</li>;
 }
 
+function TodoList() {
+  return (
+    <ul className="todo-list">
+      {todos.map(todo => <TodoItem text={todo} />)}
+    </ul>
+  );
+}
 #+END_SRC
 *** Reagent
 #+BEGIN_SRC clojure
-(defn simple-parent []
-  [:div
-   [:p "I include simple-component."]
-   [simple-component]])
+(def todos ["Learn ClojureScript"
+            "Learn Reagent"
+            "Learn Reframe"])
+
+(defn todo-item [todo]
+  [:li {:class "todo-item"} todo])
+
+(defn todo-list []
+  [:ul {:class "todo-list"}
+   (for [todo todos] [todo-item todo])])
 #+END_SRC
+** State
+*** React
+#+BEGIN_SRC js
+function TodoItem({todo, deleteTodo}) {
+  return (
+    <li className="todo-item">
+      {todo.text}
+      <button onClick={() => deleteTodo(todo.id)}>X</button>
+    </li>
+  );
+}
+
+class TodoList extends React.Component {
+  state = {
+    visibleType: 'all',
+    todos: [
+      {id: 1, text: 'Learn ClojureScript'},
+      {id: 2, text: 'Learn Reagent'},
+      {id: 3, text: 'Learn Reframe'}
+    ]
+  }
+
+  deleteTodo = (targetId) => {
+    const {filter, todos} = this.state;
+    this.setState({
+      filter,
+      todos: todos.filter(({id}) => targetId !== id)
+    });
+  }
+
+  render() {
+    return (
+      <ul className="todo-list">
+        {this.state.todos.map(todo =>
+          <TodoItem 
+            key={todo.id}
+            todo={todo}
+            deleteTodo={this.deleteTodo} />
+        )}
+      </ul>
+    );
+  }
+}
+#+END_SRC
+*** Reagent
+#+BEGIN_SRC clojure
+(def visible-type (r/atom :all))
+(def todos (r/atom [{:id 1, :text "Learn ClojureScrpt"}
+                    {:id 2, :text "Learn Reagent"}
+                    {:id 3, :text "Learn Reframe"}]))
+
+(defn delete-todo [todo]
+  (swap! todos (partial remove #(= todo %))))
+
+(defn todo-item [todo]
+  [:li {:class "todo-item"}
+    (:text todo)
+    [:button {:on-click #(delete-todo todo)} "X"]])
+
+(defn todo-list []
+  [:ul
+   (for [todo @todos]
+     ^{:key (:id todo)} [todo-item todo])])
+#+END_SRC
+
+** Controlled Component
+*** React
+#+BEGIN_SRC js
+class TodoInput extends React.Component {
+  state = {value: ''}
+
+  onChange = ev => {
+    this.setState({value: ev.target.value});
+  }
+
+  onKeyPress = ev => {
+    if (ev.which === 13) {
+      this.props.addTodo(this.state.value);
+    }
+  }
+
+  render() {
+    return (
+      <input type="text"
+        onChange={this.onChange}
+        onKeyPress={this.onKeyPress}
+        value={this.state.value} />
+    );
+  }
+}
+#+END_SRC
+*** Reagent
+#+BEGIN_SRC clojure
+(defn todo-input []
+  (let [value (r/atom "")
+        on-change #(reset! value (.. % -target -value))
+        on-key-press #(if (= (.-which %) 13) (add-todo @value))]
+    (fn []
+      [:input {:type :text
+               :on-change on-change
+               :on-key-press on-key-press
+               :value @value}])))
+#+END_SRC
+
+** Performance
+*** React
+#+BEGIN_SRC js
+class Counter extends React.PureComponent {
+  render() {
+    const {idx, increase, data: {info, value}} = this.props;
+    return (
+      <button onClick={() => increase(idx)}>
+        {info.name} : {value}
+      </button>
+    );
+  }
+}
+
+class CounterApp extends React.Component {
+  state = {
+    counters: [
+      {info: {name: "counter1", step: 5}, value: 0},
+      {info: {name: "counter2", step: 10}, value: 0},
+      {info: {name: "counter3", step: 15}, value: 0}
+    ]
+  }
+
+  increase = idx => {
+    const counters = [...this.state.counters];
+    const target = counters[idx];
+    counters[idx] = {...target, value: target.value + target.info.step}
+
+    this.setState({counters});
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.counters.map((data, idx) =>
+          <Counter key={idx} idx={idx}
+            data={data} increase={this.increase} />
+        )}
+      </div>
+    );
+  }
+}
+#+END_SRC
+*** Reagent
+#+BEGIN_SRC clojure
+(def counters (r/atom [{:info {:name "count1" :step 5} :value 0}
+                       {:info {:name "count2" :step 10} :value 0}
+                       {:info {:name "count3" :step 15} :value 0}]))
+
+(defn counter [idx {{name :name step :step} :info value :value}]
+  (let [increase #(+ step value)
+        on-click #(swap! counters update-in [idx :value] increase)]
+    [:button {:on-click on-click}
+     (str name " : " value)]))
+
+(defn counter-app []
+  [:div
+   (map-indexed (fn [idx data]
+                  ^{:key idx} [counter idx data]) @counters)])
+#+END_SRC
+* Redux 
+** React의 State 관리
+- React만으로는 State 관리가 어려움
+- State를 관리하는 별도의 레이어가 필요
+- Redux, Relay, MobX 등을 사용
+** Redux - 3 Core Principles
+*** 1. Single source of truth
+- 단일 스토어 사용 : 어플리케이션의 모든 상태는 단일 트리 형태로 저장됨
+- 전체 상태를 관리하기 쉬움
+- 전체 상태를 서버 등의 다른 환경과 공유하기 쉬움
+- 개발도구에서 상태가 변경된 모든 이력을 남길 수 있고, Undo/Redo의 작업이 간편함
+*** 2. State is Read-Only
+- State를 직접 변경할 수 없음 (setter X)
+- 오직 Action 을 발생시켜서만 State를 변경함.
+- 하나의 Action에 하나의 변경만 있기 때문에, 복잡한 상호관계가 없음.
+*** 3. Changes are made with pure functions
+- reducer는 순수 함수여야 함
+- state 는 불변 객체
+- state 변경이 이루어질 때마다 새로운 state 트리 반환
+* Why Immutable?
+*** Performance
+- 상태의 변경을 확인할 때, 레퍼런스만으로 Shallow 비교가 가능
+- React가 추구하는 방식과 잘 어울림
+*** Time-Travel Debugging
+- 상태 변경의 모든 이력을 저장할 수 있음
+- Time-Travel 디버깅 가능
+*** Easy Test
+- 순수 함수는 테스트가 쉽다
+* Redux - Sample Code
+* Immutability in Javascript
+#+BEGIN_SRC js
+const state = {
+  artist: {
+    name: {
+      first: 'Michael',
+      last: 'Jackson'
+    },
+    born: '1958-08-29'
+  },
+  genre: ['pop', 'soul', 'disco', 'rock'],
+  albums: []
+}
+#+END_SRC
+** Plain Javascript
+#+BEGIN_SRC js
+function updateLastName(state, lastName) {
+  return {
+    ...state,
+    artist: {
+      ...state.artist,
+      name: {
+        ...state.artist.name,
+        last: lastName
+      }
+    }
+  };
+}
+
+const state1 = updateLastName(state, 'J');
+const state2 = updateLastName(state, 'J');
+console.log(state1 === state2); // false
+#+END_SRC
+** Lodash / Ramda 
+#+BEGIN_SRC js
+import _ from 'lodash/fp'
+
+function updateLastName(state, lastName) {
+  return _.set(state, ['artist', 'name', 'last'], lastName);
+}
+
+const state1 = updateLastName(state, 'J');
+const state2 = updateLastName(state, 'J');
+console.log(state1 === state2); // false
+#+END_SRC
+** ImmutableJS
+#+BEGIN_SRC js
+// ImmutableJS 객체로 변경
+const stateIM = Immutable.Map(state);
+
+function updateLastName(state, lastName) {
+  return state.setIn(['artist', 'name', 'last'], lastName);
+}
+
+// 비교
+const state1 = updateLastName(staetIM, 'J');
+const state2 = updateLastName(staetIM, 'J');
+console.log(state1.equal(state2));  // true
+
+// 일반 JS로 변경
+const stateJS = stateIM.toJS();
+#+END_SRC
+** ClojureScript
+#+BEGIN_SRC clojure
+(def state 
+  {:artist {:name {:first "Michael"
+                   :last "Jackson"}
+            :born "1958-08-29"}
+   :genre ["pop" "soul" "disco" "rock"]
+   :albums []})
+
+(defn update-last-name [state last-name]
+  (assoc-in state [:artist :name :last] last-name))
+
+(def state1 (update-last-name state "J"))
+(def state2 (update-last-name state "J"))
+(js/console.log (= state1 state2)) ;; true
+#+END_SRC
+
+* Reframe
